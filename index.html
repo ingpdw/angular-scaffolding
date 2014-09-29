@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="autocomplete" content="off" />
+<meta name="description" content="plaync" />
+<title>sample</title>
+<script src="http://static.plaync.co.kr/common/js/lib/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+<!-- Controller -->
+<div ng-controller="sampleController">
+	<!-- Directive -->
+	<div class="sampleDirective"></div>
+</div>
+
+<script src="http://static.plaync.co.kr/common/js/lib/angular-1.1.0/angular.min.js"></script>
+<script src="./controllers/sampleController.js"></script>
+<script src="./directives/directives.js"></script>
+<script src="./directives/sampleDirective.js"></script>
+<script src="./directives/sample2Directive.js"></script>
+<script src="./services/exception.js"></script>
+<script src="./services/services.js"></script>
+<script src="./app.js"></script>
+<script>
+
+var changeMaskText = function( input ){
+	var at = '@',
+		txt = input.split( at ),
+		len = txt[ 0 ].length,
+		domain = ( txt[ 1 ] )? txt[ 1 ]: '';
+
+	if( len <= 1 ) return input;
+
+	if( len === 2 ){
+		input[ 1 ] = '*'
+		return input; 
+	};
+
+	var reg = ( len > 5 )? 
+		/^.(.+)..$/g: /^.(.+).$/g;
+
+	return txt[ 0 ].replace( reg, function( match, p1, offset, string ){
+		var len = p1.length, mask = '';
+
+		while( len ){
+			mask += '*';
+			len--;
+		};
+
+		return match.replace( p1, mask ) + at + domain;
+	});
+};
+
+console.log( changeMaskText( 'a@abc.com' ) );
+
+</script>
+</body>
+</html>
