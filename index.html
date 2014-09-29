@@ -25,36 +25,6 @@
 <script src="./app.js"></script>
 <script>
 
-var changeMaskText = function( input ){
-	var at = '@',
-		txt = input.split( at ),
-		len = txt[ 0 ].length,
-		domain = ( txt[ 1 ] )? txt[ 1 ]: '';
-
-	if( len <= 1 ) return input;
-
-	if( len === 2 ){
-		input[ 1 ] = '*'
-		return input; 
-	};
-
-	var reg = ( len > 5 )? 
-		/^.(.+)..$/g: /^.(.+).$/g;
-
-	return txt[ 0 ].replace( reg, function( match, p1, offset, string ){
-		var len = p1.length, mask = '';
-
-		while( len ){
-			mask += '*';
-			len--;
-		};
-
-		return match.replace( p1, mask ) + at + domain;
-	});
-};
-
-console.log( changeMaskText( 'a@abc.com' ) );
-
 </script>
 </body>
 </html>
